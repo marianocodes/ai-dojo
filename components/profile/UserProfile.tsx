@@ -227,7 +227,7 @@ export function UserAvatar({
 
   // Generate avatar URL using the utility function
   const sizeMap = { sm: 48, md: 80, lg: 128 };
-  const avatarUrl = generateAvatarUrl(user.username || user.displayName, sizeMap[size]);
+  const avatarUrl = generateAvatarUrl(user.displayName || user.displayName, sizeMap[size]);
   
   const sizeClasses = {
     sm: 'h-6 w-6 text-xs',
