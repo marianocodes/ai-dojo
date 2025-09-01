@@ -13,9 +13,22 @@ This is a **Next.js 15.5.2** project with the **App Router** using:
 
 ### Key Architecture
 - `app/` - Next.js App Router pages and layouts
-- `lib/` - Shared utilities (includes `cn()` utility from shadcn)
-- `components/` - React components (configured but currently empty)
+- `lib/` - Shared utilities (includes `cn()` utility, constants, and mock data)
+- `components/` - Modular React components organized by feature:
+  - `layout/` - Layout components (MainLayout, Sidebar, Header)
+  - `navigation/` - Navigation-related components
+  - `post/` - Post-related components (PostCard, PostHeader, PostEngagement)
+  - `feed/` - Feed container components
+  - `search/` - Search functionality
+  - `notifications/` - Notification components
+  - `profile/` - User profile components
 - Uses path aliases: `@/components`, `@/lib`, `@/utils`, `@/ui`, `@/hooks`
+
+### Component Architecture
+- **Client-side components** using `'use client'` directive
+- **Responsive design** with mobile-first approach
+- **State management** with React hooks (useState, useEffect)
+- **Modular structure** following single responsibility principle
 
 ## Development Commands
 
@@ -62,9 +75,15 @@ yarn lint
 - No test files in project root
 
 ## Semantic Commits
-This project uses a semantic commit generator in `.claude/commands/commit.md` that follows conventional commit format (`type(scope): description`).
+This project uses a semantic commit generator in `.claude/commands/commit.md` that follows conventional commit format (`type(scope): description`). The commit command automatically analyzes staged changes and generates appropriate commit messages without AI attribution footers.
 
 ## Important Notes
 - **Tailwind CSS v4**: If styles aren't loading, ensure `postcss.config.js` exists with `@tailwindcss/postcss` plugin
 - **Package Manager**: Project uses `yarn.lock` - use yarn commands, not npm
 - **No TypeScript config**: Uses Next.js default TypeScript configuration
+- **Project Name**: "socialgram" - a social media application with Instagram-like features
+
+## Additional Dependencies
+- `class-variance-authority` - For component variant styling
+- `tailwind-merge` - For conditional CSS class merging
+- `tw-animate-css` - For advanced Tailwind animations
