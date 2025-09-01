@@ -1,0 +1,11 @@
+[INFO] React DevTools recommendation:
+Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+
+[WARNING] Metadata configuration warnings:
+1. Unsupported metadata viewport is configured in metadata export in /. 
+   Please move it to viewport export instead.
+   Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+
+2. Unsupported metadata themeColor is configured in metadata export in /. 
+   Please move it to viewport export instead.
+   Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
