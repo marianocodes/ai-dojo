@@ -52,7 +52,7 @@ export default function NavItem({
         // Base navigation item styles
         "flex items-center gap-4 px-4 py-3 rounded-lg",
         "text-sm font-medium transition-all duration-200",
-        "hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500",
+        "hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500",
         "group", // For hover effects on child elements
         
         // Active state - bright green as specified in requirements
@@ -134,7 +134,7 @@ export function SecondaryNavItem({
           isActive ? (
             "bg-gray-700 text-white"
           ) : (
-            "text-gray-400 hover:text-white hover:bg-gray-700"
+            "text-gray-400 hover:text-white hover:bg-blue-700"
           )
         ),
         
@@ -205,7 +205,7 @@ export function NavButton({
         isDestructive ? (
           "text-gray-400 hover:text-red-400 hover:bg-red-900/20"
         ) : (
-          "text-gray-400 hover:text-white hover:bg-gray-700"
+          "text-gray-400 hover:text-white hover:bg-blue-700"
         ),
         
         className
