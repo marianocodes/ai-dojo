@@ -57,5 +57,14 @@ yarn lint
 - ESLint with Next.js TypeScript rules
 - Ignores: `node_modules/`, `.next/`, `out/`, `build/`, `next-env.d.ts`
 
+## Testing
+- No testing framework currently configured
+- No test files in project root
+
 ## Semantic Commits
 This project uses a semantic commit generator in `.claude/commands/commit.md` that follows conventional commit format (`type(scope): description`).
+
+## Important Notes
+- **Tailwind CSS v4**: If styles aren't loading, ensure `postcss.config.js` exists with `@tailwindcss/postcss` plugin
+- **Package Manager**: Project uses `yarn.lock` - use yarn commands, not npm
+- **No TypeScript config**: Uses Next.js default TypeScript configuration

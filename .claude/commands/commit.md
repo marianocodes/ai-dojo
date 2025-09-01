@@ -1,6 +1,7 @@
 ---
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git commit:*)
 description: "Generate semantic commit messages by analyzing staged changes and create conventional commits automatically"
+model: claude-3-5-haiku-20241022
 ---
 
 # Semantic Commit Generator
@@ -158,3 +159,8 @@ Execute these steps in order:
 - Include scope when changes affect specific components
 
 The commit message should clearly communicate the change without revealing the generation method.
+
+## Important Notes
+- **Do NOT include** any mention of Claude Code or AI generation in commit messages
+- **Do NOT add** footers like "Generated with Claude Code" or "Co-Authored-By: Claude"
+- Keep commit messages clean and professional without revealing the automation
