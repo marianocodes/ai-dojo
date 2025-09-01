@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Heart, MessageCircle, Share, Bookmark } from 'lucide-react';
-import { formatLikeCount } from '@/lib/mock-data';
-import { mockCurrentUser } from '@/lib/mock-data';
+import { formatLikeCount, mockCurrentUser, generateAvatarUrl } from '@/lib/mock-data';
 import type { Comment } from '@/types/social';
 
 /**
@@ -58,6 +57,10 @@ export default function PostEngagement({
   const [isBookmarked, setIsBookmarked] = useState(initialIsBookmarked);
   const [commentText, setCommentText] = useState('');
   const [localLikes, setLocalLikes] = useState(likes);
+  const [avatarError, setAvatarError] = useState(false);
+
+  // Generate current user avatar URL
+  const currentUserAvatarUrl = generateAvatarUrl(mockCurrentUser.username, 64);
 
   // Handle like button click
   const handleLike = () => {
@@ -184,9 +187,18 @@ export default function PostEngagement({
         <div className="flex items-center gap-3 pt-2 border-t border-gray-700">
           {/* Current User Avatar */}
           <div className="h-8 w-8 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
-            <span className="text-white text-xs font-medium">
-              {mockCurrentUser.displayName.split(' ').map(n => n.charAt(0)).join('').toUpperCase()}
-            </span>
+            {!avatarError ? (
+              <img
+                src={currentUserAvatarUrl}
+                alt={`${mockCurrentUser.displayName} avatar`}
+                className="h-full w-full object-cover"
+                onError={() => setAvatarError(true)}
+              />
+            ) : (
+              <span className="text-white text-xs font-medium">
+                {mockCurrentUser.displayName.split(' ').map(n => n.charAt(0)).join('').toUpperCase()}
+              </span>
+            )}
           </div>
           
           {/* Comment Input */}

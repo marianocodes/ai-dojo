@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, memo } from 'react';
+import React, { useState, memo } from 'react';
 import { cn } from '@/lib/utils';
+import { generatePostImageUrl } from '@/lib/mock-data';
 import PostHeader from './PostHeader';
 import PostEngagement from './PostEngagement';
 import type { Post } from '@/types/social';
@@ -54,6 +55,10 @@ const PostCard = memo(function PostCard({
   priority = false
 }: PostCardProps) {
   const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  // Always use generated image URL for consistent loading
+  const imageUrl = generatePostImageUrl(post.id);
 
   // Handle post options click
   const handleOptionsClick = () => {
@@ -86,45 +91,52 @@ const PostCard = memo(function PostCard({
       />
 
       {/* Post Image */}
-      {post.image && (
-        <div className="relative aspect-square bg-gradient-to-br from-gray-700 to-gray-800">
-          {!imageError ? (
-            <img
-              src={post.image}
-              alt={`Post by ${post.author.username}`}
-              className="w-full h-full object-cover"
-              onError={() => setImageError(true)}
-              loading={priority ? "eager" : "lazy"}
-            />
-          ) : (
-            /* Fallback when image fails to load */
-            <div className="absolute inset-0 flex items-center justify-center text-white">
-              <div className="text-center">
-                <div className="text-lg font-medium mb-1">📷</div>
-                <div className="text-sm opacity-75">Image unavailable</div>
-              </div>
-            </div>
+      <div className="relative aspect-square bg-gradient-to-br from-green-600 to-green-800">
+        <img
+          src={imageUrl}
+          alt={`Post by ${post.author.username}`}
+          className={cn(
+            "w-full h-full object-cover transition-opacity duration-300",
+            imageLoaded && !imageError ? "opacity-100" : "opacity-0"
           )}
-          
-          {/* Caption Overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-4 text-white">
-            <p 
-              className="text-sm leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: processContent(post.content) }}
-            />
+          onError={() => setImageError(true)}
+          onLoad={() => setImageLoaded(true)}
+          loading={priority ? "eager" : "lazy"}
+        />
+        
+        {/* Loading/Error State Overlay */}
+        {(!imageLoaded || imageError) && (
+          <div className="absolute inset-0 flex items-center justify-center text-white">
+            <div className="text-center">
+              {!imageLoaded && !imageError ? (
+                /* Loading State */
+                <>
+                  <div className="animate-spin h-8 w-8 border-2 border-white border-t-transparent rounded-full mb-2 mx-auto"></div>
+                  <div className="text-sm opacity-75">Loading image...</div>
+                </>
+              ) : (
+                /* Error/Fallback State */
+                <>
+                  <div className="text-6xl mb-4 opacity-90">📷</div>
+                  <div className="text-lg font-medium mb-2">Post by {post.author.username}</div>
+                  <div className="text-sm opacity-75 px-4">
+                    Image unavailable
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Post Content (when no image) */}
-      {!post.image && (
-        <div className="p-4 border-b border-gray-700">
+        )}
+        
+        {/* Caption Overlay */}
+        <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-4 text-white">
           <p 
-            className="text-white leading-relaxed"
+            className="text-sm leading-relaxed"
             dangerouslySetInnerHTML={{ __html: processContent(post.content) }}
           />
         </div>
-      )}
+      </div>
+
 
       {/* Engagement Section */}
       <PostEngagement

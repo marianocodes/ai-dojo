@@ -291,13 +291,20 @@ export function extractMentions(content: string): string[] {
 /**
  * Generate mock avatar URL (fallback for missing avatars)
  */
-export function generateAvatarUrl(username: string): string {
-  return `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=6366f1&color=fff&size=40`;
+export function generateAvatarUrl(username: string, size: number = 80): string {
+  if (!username) return '';
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=10b981&color=fff&size=${size}&rounded=true&bold=true`;
 }
 
 /**
  * Generate mock post image URL (fallback for missing images)
  */
 export function generatePostImageUrl(postId: string): string {
-  return `https://picsum.photos/600/400?random=${postId}`;
+  // Use Picsum Photos which is reliable for placeholder images
+  const imageId = Math.abs(postId.split('').reduce((a, b) => {
+    a = ((a << 5) - a) + b.charCodeAt(0);
+    return a & a;
+  }, 0)) % 1000 + 1;
+  
+  return `https://picsum.photos/600/400?random=${imageId}`;
 }

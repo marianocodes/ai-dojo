@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { LogOut } from 'lucide-react';
+import { generateAvatarUrl } from '@/lib/mock-data';
 import type { CurrentUser } from '@/types/social';
 
 /**
@@ -35,6 +36,9 @@ export default function UserProfile({
   compact = false
 }: UserProfileProps) {
   const [avatarError, setAvatarError] = useState(false);
+
+  // Generate avatar URL using the utility function
+  const avatarUrl = generateAvatarUrl(user.username, compact ? 64 : 80);
 
   const handleLogoutClick = () => {
     // Mock logout functionality - just log to console
@@ -73,9 +77,9 @@ export default function UserProfile({
           aria-label={`${user.displayName} profile picture`}
         >
           {/* User Avatar Image */}
-          {user.avatar && !avatarError ? (
+          {!avatarError ? (
             <img
-              src={user.avatar}
+              src={avatarUrl}
               alt={`${user.displayName} avatar`}
               className="h-full w-full object-cover"
               onError={() => setAvatarError(true)}
@@ -220,6 +224,10 @@ export function UserAvatar({
   onClick
 }: UserAvatarProps) {
   const [avatarError, setAvatarError] = useState(false);
+
+  // Generate avatar URL using the utility function
+  const sizeMap = { sm: 48, md: 80, lg: 128 };
+  const avatarUrl = generateAvatarUrl(user.username || user.displayName, sizeMap[size]);
   
   const sizeClasses = {
     sm: 'h-6 w-6 text-xs',
@@ -255,9 +263,9 @@ export function UserAvatar({
         role="img"
         aria-label={`${user.displayName} avatar`}
       >
-        {user.avatar && !avatarError ? (
+        {!avatarError ? (
           <img
-            src={user.avatar}
+            src={avatarUrl}
             alt={`${user.displayName} avatar`}
             className="h-full w-full object-cover"
             onError={() => setAvatarError(true)}

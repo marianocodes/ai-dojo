@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { MoreHorizontal, MapPin } from 'lucide-react';
-import { formatTimestamp } from '@/lib/mock-data';
+import { formatTimestamp, generateAvatarUrl } from '@/lib/mock-data';
 import type { User } from '@/types/social';
 
 /**
@@ -37,6 +37,9 @@ export default function PostHeader({
 }: PostHeaderProps) {
   const [avatarError, setAvatarError] = useState(false);
 
+  // Generate avatar URL using the utility function
+  const avatarUrl = generateAvatarUrl(author.username, 80);
+
   // Handle options menu click
   const handleOptionsClick = () => {
     console.log(`Options clicked for post by ${author.username}`);
@@ -52,9 +55,9 @@ export default function PostHeader({
         {/* User Avatar */}
         <div className="relative">
           <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
-            {author.avatar && !avatarError ? (
+            {!avatarError ? (
               <img
-                src={author.avatar}
+                src={avatarUrl}
                 alt={`${author.displayName} avatar`}
                 className="h-full w-full object-cover"
                 onError={() => setAvatarError(true)}
@@ -151,6 +154,9 @@ export function UserInfo({
 }: UserInfoProps) {
   const [avatarError, setAvatarError] = useState(false);
 
+  // Generate avatar URL using the utility function
+  const avatarUrl = generateAvatarUrl(user.username, 64);
+
   const sizeClasses = {
     sm: { avatar: 'h-6 w-6', text: 'text-xs', name: 'text-sm' },
     md: { avatar: 'h-8 w-8', text: 'text-sm', name: 'text-base' },
@@ -163,9 +169,9 @@ export function UserInfo({
     <div className={cn("flex items-center gap-2", className)}>
       {/* User Avatar */}
       <div className={cn("rounded-full bg-gray-600 flex items-center justify-center overflow-hidden", sizes.avatar)}>
-        {user.avatar && !avatarError ? (
+        {!avatarError ? (
           <img
-            src={user.avatar}
+            src={avatarUrl}
             alt={`${user.displayName} avatar`}
             className="h-full w-full object-cover"
             onError={() => setAvatarError(true)}
