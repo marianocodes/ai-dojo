@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { mockNavigationItems, mockCurrentUser } from '@/lib/mock-data'
-import type { NavigationItem } from '@/lib/mock-data'
+import type { NavigationItem } from '@/types'
 
 /**
  * Fixed left sidebar navigation component

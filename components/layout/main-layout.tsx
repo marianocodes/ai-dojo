@@ -5,16 +5,13 @@ import { cn } from '@/lib/utils'
 import { Sidebar } from './sidebar'
 import { Header } from './header'
 
+import type { LayoutContextType } from '@/types'
+
 /**
  * Main layout wrapper component
  * Manages overall page structure and mobile navigation state
  * Follows technical plan TECH-1 specifications with React Context for navigation
  */
-
-interface LayoutContextType {
-  isMobileSidebarOpen: boolean;
-  setIsMobileSidebarOpen: (open: boolean) => void;
-}
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
 
