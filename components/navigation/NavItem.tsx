@@ -9,7 +9,7 @@ import { LucideIcon } from 'lucide-react';
  * Reusable navigation item component for sidebar navigation
  * Implements active state detection and consistent styling
  * Based on architect's example: Client component with Next.js Link and usePathname
- * Follows existing pattern: Dark theme with bright green active states
+ * Follows existing pattern: Dark theme with blue active states
  */
 interface NavItemProps {
   /** Unique identifier for the navigation item */
@@ -52,14 +52,14 @@ export default function NavItem({
         // Base navigation item styles
         "flex items-center gap-4 px-4 py-3 rounded-lg",
         "text-sm font-medium transition-all duration-200",
-        "hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500",
+        "focus:outline-none focus:ring-2 focus:ring-blue-500",
         "group", // For hover effects on child elements
         
-        // Active state - bright green as specified in requirements
+        // Active state - darker blue as requested
         isActive ? (
-          "bg-green-600 text-white hover:bg-green-700"
+          "bg-blue-600 text-white hover:bg-blue-700"
         ) : (
-          "text-gray-300 hover:text-white"
+          "text-gray-300 hover:text-white hover:bg-blue-600/20"
         ),
         
         // Custom classes
@@ -132,9 +132,9 @@ export function SecondaryNavItem({
           "text-gray-400 hover:text-red-400 hover:bg-red-900/20"
         ) : (
           isActive ? (
-            "bg-gray-700 text-white"
+            "bg-blue-600 text-white hover:bg-blue-700"
           ) : (
-            "text-gray-400 hover:text-white hover:bg-gray-700"
+            "text-gray-400 hover:text-white hover:bg-blue-600/20"
           )
         ),
         
@@ -205,7 +205,7 @@ export function NavButton({
         isDestructive ? (
           "text-gray-400 hover:text-red-400 hover:bg-red-900/20"
         ) : (
-          "text-gray-400 hover:text-white hover:bg-gray-700"
+          "text-gray-400 hover:text-white hover:bg-blue-600/20"
         ),
         
         className
