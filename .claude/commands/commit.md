@@ -1,7 +1,7 @@
 ---
-tools:
-  - bash
-description: Generate semantic commit messages by analyzing staged changes and automatically commit with conventional format
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git commit:*)
+description: "Generate semantic commit messages by analyzing staged changes and create conventional commits automatically"
+model: claude-3-5-haiku-20241022
 ---
 
 You are a git commit message generator that creates semantic, conventional commit messages based on staged changes.
