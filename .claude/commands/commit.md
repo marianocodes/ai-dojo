@@ -4,163 +4,123 @@ description: "Generate semantic commit messages by analyzing staged changes and 
 model: claude-3-5-haiku-20241022
 ---
 
-# Semantic Commit Generator
-
-Generate well-formatted conventional commit messages by analyzing staged changes in your repository and automatically execute the commit.
+You are a git commit message generator that creates semantic, conventional commit messages based on staged changes.
 
 ## Process
 
-1. **Check Git Status**: First, verify there are staged changes ready for commit
-2. **Analyze Changes**: Review the staged diff to understand what was modified
-3. **Categorize**: Determine the appropriate commit type and scope
-4. **Generate Message**: Create a conventional commit message
-5. **Execute Commit**: Automatically commit with the generated message
+1. **Check git status** to see what files are staged:
+   ```
+   !git status
+   ```
+
+2. **Review staged changes** to understand what was modified:
+   ```
+   !git diff --staged
+   ```
+
+3. **Analyze the changes** and determine:
+   - **Type**: What kind of change this is (feat, fix, docs, style, refactor, test, chore, perf, ci)
+   - **Scope**: What part of the codebase was affected (optional but recommended)
+   - **Description**: A clear, concise summary of what changed
+
+4. **Generate commit message** following conventional commits format:
+   ```
+   type(scope): description
+   
+   Optional body with more details
+   ```
+
+5. **Execute the commit** using the generated message:
+   ```
+   !git commit -m "your-generated-message"
+   ```
 
 ## Commit Types
 
 - **feat**: New features or functionality
 - **fix**: Bug fixes
-- **docs**: Documentation changes  
-- **style**: Code formatting, missing semicolons, etc.
-- **refactor**: Code restructuring without behavior changes
+- **docs**: Documentation changes
+- **style**: Code formatting, missing semicolons, etc. (no logic changes)
+- **refactor**: Code changes that neither fix bugs nor add features
 - **test**: Adding or updating tests
-- **chore**: Maintenance tasks, dependency updates
+- **chore**: Maintenance tasks, dependency updates, build processes
 - **perf**: Performance improvements
-- **ci**: CI/CD pipeline changes
+- **ci**: Continuous integration changes
 
-## Message Format
+## Message Format Guidelines
 
-Follow conventional commits: `type(scope): description`
-
-For complex changes, use bullet points:
+### For Simple Changes (Use concise format):
 ```
-type(scope): brief description
-
-- Detail 1
-- Detail 2
-- Detail 3
+feat(auth): add OAuth login support
+fix(api): resolve null pointer in user validation
+docs(readme): update installation instructions
 ```
 
-## Examples
-
-### Feature Addition
+### For Complex Changes (Use bullet points):
 ```
-feat(auth): add social login integration
+feat(dashboard): implement user analytics panel
 
-- Implement OAuth2 flow for Google and GitHub
-- Add user profile synchronization
-- Create callback handlers with error management
-- Update user model for OAuth provider data
+- Add analytics charts for user engagement
+- Create filtering options by date range
+- Implement export functionality for reports
+- Update dashboard layout to accommodate new widgets
 ```
 
-### Bug Fix
+### For Breaking Changes:
 ```
-fix(api): resolve race condition in session validation
+feat(api)!: redesign authentication system
 
-Prevents concurrent session updates from causing authentication failures
-```
-
-### Refactoring
-```
-refactor(components): restructure form validation logic
-
-- Extract validation rules into reusable utilities
-- Consolidate error handling across form components
-- Remove duplicate validation code
-- Improve type safety for validation rules
+BREAKING CHANGE: Auth endpoints now require API version header
 ```
 
-### Performance Improvement
-```
-perf(database): optimize user search queries
+## Examples by Change Type
 
-Reduces query execution time from 2.3s to 45ms by adding proper indexing
+### Feature Addition:
 ```
-
-### Documentation
-```
-docs(api): update authentication endpoint documentation
-
-Add comprehensive examples for OAuth2 flow and token refresh handling
+feat(components): add dark mode toggle component
 ```
 
-### Testing
+### Bug Fix:
 ```
-test(auth): add comprehensive login flow test coverage
-
-Includes success scenarios, validation errors, and edge cases
+fix(validation): prevent empty form submission
 ```
 
-### CI/CD Changes
+### Performance Improvement:
 ```
-ci(deploy): add automated database migration step
-
-Ensures schema updates are applied before application deployment
+perf(queries): optimize database queries for user dashboard
 ```
 
-### Style Changes
+### Refactoring:
 ```
-style(components): apply consistent formatting and linting fixes
-
-Resolves ESLint warnings and improves code readability
+refactor(utils): extract common validation logic into helpers
 ```
 
-### Maintenance/Dependencies
+### Documentation:
 ```
-chore(deps): update React ecosystem to latest stable versions
+docs(api): add examples for authentication endpoints
+```
 
-Includes security patches and performance improvements
+### Tests:
+```
+test(auth): add unit tests for login functionality
+```
+
+### Chore:
+```
+chore(deps): update React to version 18.2.0
 ```
 
 ## Instructions
 
-Execute these steps in order:
+1. First run the git commands to understand what changes are staged
+2. Analyze the diff output to understand:
+   - Which files were modified
+   - What functionality was added/changed/removed
+   - The scope/area of the codebase affected
+3. Choose the appropriate commit type
+4. Write a clear, descriptive message that explains WHAT changed (not how or why)
+5. For complex changes involving multiple areas, use bullet points in the body
+6. Commit automatically using the generated message
+7. Confirm the commit was successful
 
-1. **Check staged changes exist:**
-   ```
-   !git status
-   ```
-
-2. **Analyze the staged changes:**
-   ```
-   !git diff --staged
-   ```
-
-3. **Based on the diff output, determine:**
-   - Primary change type (feat, fix, docs, etc.)
-   - Affected scope/component
-   - Complexity level (simple description vs bullet points)
-
-4. **Generate and execute commit using this format:**
-   ```
-   !git commit -m "$(cat <<'EOF'
-   type(scope): description
-
-   Optional details:
-   - Point 1
-   - Point 2
-   EOF
-   )"
-   ```
-
-5. **Confirm success:**
-   ```
-   !git status
-   ```
-
-## Guidelines
-
-- Focus on **what** changed and **why** it matters
-- Use present tense ("add feature" not "added feature")
-- Be specific about the impact or benefit
-- Keep the first line under 72 characters
-- Use bullet points for multi-part changes
-- Maintain professional, descriptive language
-- Include scope when changes affect specific components
-
-The commit message should clearly communicate the change without revealing the generation method.
-
-## Important Notes
-- **Do NOT include** any mention of Claude Code or AI generation in commit messages
-- **Do NOT add** footers like "Generated with Claude Code" or "Co-Authored-By: Claude"
-- Keep commit messages clean and professional without revealing the automation
+Remember: The goal is to create clear, semantic commit messages that help other developers understand the change at a glance.

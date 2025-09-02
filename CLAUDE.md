@@ -2,69 +2,55 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Structure
+## Project Overview
 
-This is a **Next.js 15.5.2** project with the **App Router** using:
-- **TypeScript**
-- **Tailwind CSS v4** (new version)
-- **Turbopack** for bundling (enabled in dev and build)
-- **shadcn/ui** components (configured with "new-york" style)
-- **Lucide React** for icons
-
-### Key Architecture
-- `app/` - Next.js App Router pages and layouts
-- `lib/` - Shared utilities (includes `cn()` utility from shadcn)
-- `components/` - React components (configured but currently empty)
-- Uses path aliases: `@/components`, `@/lib`, `@/utils`, `@/ui`, `@/hooks`
+This is a Next.js 15 application called "socialgram" built with TypeScript, TailwindCSS v4, and shadcn/ui components. The project uses the App Router architecture and includes modern development tooling.
 
 ## Development Commands
 
-```bash
-# Development (with Turbopack)
-yarn dev
+- **Start development server**: `npm run dev` (uses Turbopack for faster builds)
+- **Build for production**: `npm run build` (uses Turbopack)
+- **Start production server**: `npm start`
+- **Lint code**: `npm run lint` (ESLint with Next.js TypeScript preset)
 
-# Build (with Turbopack)  
-yarn build
+## Architecture & Structure
 
-# Production server
-yarn start
+### Directory Structure
+- `app/` - Next.js App Router pages and layouts
+- `components/` - Reusable React components (currently minimal)
+- `lib/` - Utility functions and shared logic
+- `public/` - Static assets
 
-# Linting
-yarn lint
-```
+### Key Configuration Files
+- `components.json` - shadcn/ui configuration (New York style, RSC enabled)
+- `tsconfig.json` - TypeScript configuration with `@/*` path aliases
+- `_eslint.config.mjs` - ESLint configuration extending Next.js TypeScript rules
+- `next.config.ts` - Next.js configuration (minimal setup)
 
-## Technical Details
+### Tech Stack
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript 5
+- **Styling**: TailwindCSS v4 with custom theme variables
+- **Components**: shadcn/ui (configured for New York style)
+- **Icons**: Lucide React
+- **Fonts**: Geist Sans and Geist Mono
+- **Build Tool**: Turbopack (Next.js integrated)
 
-### Fonts
-- Primary: Geist Sans (`--font-geist-sans`)
-- Monospace: Geist Mono (`--font-geist-mono`)
+### Styling System
+- Uses TailwindCSS v4 with CSS variables for theming
+- Dark mode support via CSS custom properties
+- Color system based on OKLCH for better color perception
+- Custom radius and spacing variables defined in `globals.css`
 
-### Styling
-- **Tailwind CSS v4** with PostCSS configuration
-- Configuration: `postcss.config.js` uses `@tailwindcss/postcss` plugin
-- CSS location: `app/globals.css` with `@import "tailwindcss"` and `@theme` blocks
-- **Important**: Uses new v4 syntax, not traditional config files
-- Custom colors defined using `oklch()` color space in CSS variables
+### Path Aliases
+- `@/*` maps to project root
+- `@/components` for components directory  
+- `@/lib` for utilities and shared logic
+- `@/hooks` for custom React hooks (directory not yet created)
 
-### Component Library
-- shadcn/ui configured with:
-  - Style: "new-york"
-  - RSC: enabled
-  - CSS variables: enabled
-  - Icon library: lucide-react
+## Development Notes
 
-### Linting
-- ESLint with Next.js TypeScript rules
-- Ignores: `node_modules/`, `.next/`, `out/`, `build/`, `next-env.d.ts`
-
-## Testing
-- No testing framework currently configured
-- No test files in project root
-
-## Semantic Commits
-This project uses a semantic commit generator in `.claude/commands/commit.md` that follows conventional commit format (`type(scope): description`).
-
-## Important Notes
-- **Tailwind CSS v4**: If styles aren't loading, ensure `postcss.config.js` exists with `@tailwindcss/postcss` plugin
-- **Package Manager**: Project uses `yarn.lock` - use yarn commands, not npm
-- **No TypeScript config**: Uses Next.js default TypeScript configuration
+- Project uses Turbopack for faster development and build times
+- ESLint is configured with Next.js TypeScript rules
+- The application is currently in early development stage with default Next.js starter content
+- shadcn/ui is configured but no custom components have been added yet

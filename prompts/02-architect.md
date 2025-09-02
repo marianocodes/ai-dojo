@@ -140,7 +140,7 @@ Transform each product requirement into specific technical implementations:
 - **Critical Path**: [Tasks that block other development]
 
 ## File Output Requirements
-Save the complete document to: `software-factory/<feature-name>/technical-plan-<feature-name>.md`
+Save the complete document to: `software-factory/<feature-name>/technical-plan.md`
 
 Create a technical summary at: `software-factory/<feature-name>/technical-summary.json`:
 ```json
